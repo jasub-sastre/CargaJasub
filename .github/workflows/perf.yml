@@ -87,6 +87,17 @@ jobs:
             --env BASE_URL=http://localhost:8080 \
             --env SCENARIO=baseline
 
+      - name: Reiniciar servicio antes de voters
+        run: |
+          pkill -f registraduria-1.0-SNAPSHOT.jar || true
+          sleep 3
+          nohup java -jar target/registraduria-1.0-SNAPSHOT.jar > /tmp/app-voters.log 2>&1 &
+          for i in $(seq 1 60); do
+            if curl -sf http://localhost:8080/actuator/health > /dev/null; then exit 0; fi
+            sleep 2
+          done
+          echo "El servicio no arrancó a tiempo"; cat /tmp/app-voters.log; exit 1
+        working-directory: registraduria
       # Segundo gate: verifica el RESULTADO DE NEGOCIO, no solo la latencia.
       # Un servicio que responde rápido pero mal sigue estando roto.
       - name: Verificación de resultado de negocio (voters)
