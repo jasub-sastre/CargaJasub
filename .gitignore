@@ -1,0 +1,29 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+registraduria/target/
+
+*.ini.idea/
+.vscode/
+*.iml
+
+# Resultados de las corridas de k6: se conserva la carpeta, no su contenido.
+# El volcado de "-o json=" puede pesar cientos de MB por corrida.
+perf/results/*
+!perf/results/.gitkeep
+
+# Laboratorio de mediciones (perf/lab): se versionan scripts y data/, no lo crudo.
+perf/lab/results/
+perf/lab/pool/
+perf/lab/deck/out/
+__pycache__/
